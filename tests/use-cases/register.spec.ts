@@ -9,7 +9,7 @@ describe('Register Use Case', () => {
 		const usersRepository = new InMemoryUsersRepository()
 		const registerUseCaseMock = new RegisterUseCase(usersRepository)
 
-		const { user } = await registerUseCaseMock.create({
+		const { user } = await registerUseCaseMock.execute({
 			name: 'test',
 			email: 'test@example.com',
 			password: '123456'
@@ -22,7 +22,7 @@ describe('Register Use Case', () => {
 		const usersRepository = new InMemoryUsersRepository()
 		const registerUseCaseMock = new RegisterUseCase(usersRepository)
 
-		const { user } = await registerUseCaseMock.create({
+		const { user } = await registerUseCaseMock.execute({
 			name: 'test',
 			email: 'test@example.com',
 			password: '123456'
@@ -39,14 +39,14 @@ describe('Register Use Case', () => {
 
 		const email = 'test@example.com'
 
-		await registerUseCaseMock.create({
+		await registerUseCaseMock.execute({
 			name: 'test',
 			email,
 			password: '123456'
 		})
 
 		await expect(
-			registerUseCaseMock.create({
+			registerUseCaseMock.execute({
 				name: 'test',
 				email,
 				password: '123456'
