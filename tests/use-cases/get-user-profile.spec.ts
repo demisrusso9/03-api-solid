@@ -1,4 +1,3 @@
-import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { GetUserProfileUseCase } from '@/use-cases/get-user-profile'
 import { hash } from 'bcryptjs'
@@ -27,7 +26,7 @@ describe('Authenticate Use Case', () => {
 	})
 
 	it('should be able to get the user id', async () => {
-		expect(() =>
+		await expect(() =>
 			getUserProfileUseCaseMock.execute({
 				userId: 'fake-user-id'
 			})
