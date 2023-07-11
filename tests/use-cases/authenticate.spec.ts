@@ -5,12 +5,12 @@ import { InMemoryUsersRepository } from 'tests/repository/in-memory/in-memory-us
 import { beforeEach, describe, expect, it } from 'vitest'
 
 let usersRepository: InMemoryUsersRepository
-let authenticateUseCaseMock: AuthenticateUseCase
+let sut: AuthenticateUseCase
 
 describe('Authenticate Use Case', () => {
 	beforeEach(() => {
 		usersRepository = new InMemoryUsersRepository()
-		authenticateUseCaseMock = new AuthenticateUseCase(usersRepository)
+		sut = new AuthenticateUseCase(usersRepository)
 	})
 
 	it('should be able to authenticate', async () => {
@@ -20,7 +20,7 @@ describe('Authenticate Use Case', () => {
 			password_hash: await hash('123456', 6)
 		})
 
-		const { user } = await authenticateUseCaseMock.execute({
+		const { user } = await sut.execute({
 			email: 'example@example.com',
 			password: '123456'
 		})
@@ -30,7 +30,7 @@ describe('Authenticate Use Case', () => {
 
 	it('should not be able to authenticate with wrong email', async () => {
 		await expect(() =>
-			authenticateUseCaseMock.execute({
+			sut.execute({
 				email: 'example@example.com',
 				password: '123456'
 			})
@@ -45,7 +45,7 @@ describe('Authenticate Use Case', () => {
 		})
 
 		await expect(() =>
-			authenticateUseCaseMock.execute({
+			sut.execute({
 				email: 'example@example.com',
 				password: '123123'
 			})

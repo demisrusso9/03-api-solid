@@ -5,16 +5,16 @@ import { InMemoryUsersRepository } from 'tests/repository/in-memory/in-memory-us
 import { describe, it, expect, beforeEach } from 'vitest'
 
 let usersRepository: InMemoryUsersRepository
-let registerUseCaseMock: RegisterUseCase
+let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
 	beforeEach(() => {
 		usersRepository = new InMemoryUsersRepository()
-		registerUseCaseMock = new RegisterUseCase(usersRepository)
+		sut = new RegisterUseCase(usersRepository)
 	})
 
 	it('should be able to register a user', async () => {
-		const { user } = await registerUseCaseMock.execute({
+		const { user } = await sut.execute({
 			name: 'test',
 			email: 'test@example.com',
 			password: '123456'
@@ -24,7 +24,7 @@ describe('Register Use Case', () => {
 	})
 
 	it('should hash user password upon registration', async () => {
-		const { user } = await registerUseCaseMock.execute({
+		const { user } = await sut.execute({
 			name: 'test',
 			email: 'test@example.com',
 			password: '123456'
@@ -38,14 +38,14 @@ describe('Register Use Case', () => {
 	it('should not be able to register with same email twice', async () => {
 		const email = 'test@example.com'
 
-		await registerUseCaseMock.execute({
+		await sut.execute({
 			name: 'test',
 			email,
 			password: '123456'
 		})
 
 		await expect(
-			registerUseCaseMock.execute({
+			sut.execute({
 				name: 'test',
 				email,
 				password: '123456'
