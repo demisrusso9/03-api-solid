@@ -11,7 +11,7 @@ describe('Fetch user Check-in Use Case', () => {
 		sut = new FetchUserCheckInsHistoryUseCase(checkInRepository)
 	})
 
-	it('should not be able to fetch check-in history', async () => {
+	it('should be able to fetch check-in history', async () => {
 		await checkInRepository.create({
 			gym_id: 'gym-01',
 			user_id: 'user-01'
@@ -34,7 +34,7 @@ describe('Fetch user Check-in Use Case', () => {
 		])
 	})
 
-	it('should not be able to fetch check-in history', async () => {
+	it('should be able to fetch paginated check-in history', async () => {
 		for (let i = 1; i <= 22; i++) {
 			await checkInRepository.create({
 				gym_id: `gym-${i}`,
