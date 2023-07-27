@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 let usersRepository: InMemoryUsersRepository
 let sut: GetUserProfileUseCase
 
-describe('Authenticate Use Case', () => {
+describe('Get User Profile Use Case', () => {
 	beforeEach(() => {
 		usersRepository = new InMemoryUsersRepository()
 		sut = new GetUserProfileUseCase(usersRepository)
