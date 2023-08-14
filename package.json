@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build",
+    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
+    "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "start": "node build/server.js",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
-    "prepare": "husky install"
+    "test": "vitest run --dir tests/use-cases",
+    "test:watch": "vitest --dir tests/use-cases",
+    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
+    "test:e2e": "vitest run --dir tests/http",
+    "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +41,7 @@
     "dayjs": "1.11.9",
     "dotenv": "16.1.4",
     "fastify": "4.18.0",
+    "npm-run-all": "4.1.5",
     "zod": "3.21.4"
   },
   "husky": {
